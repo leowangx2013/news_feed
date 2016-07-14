@@ -4,8 +4,8 @@ logger = logging.getLogger(__name__)
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.shortcuts import redirect
 from django.views.generic.base import View
+from django.http import HttpResponseRedirect
 
 from news_feed.subreddit.models import Subreddit
 
@@ -37,7 +37,7 @@ class CreatePostView(View):
         # STUDENT TODO | Create post from parameters
         title = input_data['title']
         if title.lower() == 'BAD'.lower():
-            return redirect('', foo='bar')
+            return HttpResponseRedirect('http://127.0.0.1:8000/')
         content = input_data['content']
         post = Post(title=title, content=content, subreddit=subreddit)
         post.save()
