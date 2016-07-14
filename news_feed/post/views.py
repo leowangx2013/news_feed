@@ -4,6 +4,7 @@ logger = logging.getLogger(__name__)
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
 from django.views.generic.base import View
 
 from news_feed.subreddit.models import Subreddit
@@ -35,6 +36,8 @@ class CreatePostView(View):
 
         # STUDENT TODO | Create post from parameters
         title = input_data['title']
+        if title.lower() == 'BAD'.lower():
+            return redirect('', foo='bar')
         content = input_data['content']
         post = Post(title=title, content=content, subreddit=subreddit)
         post.save()
@@ -69,7 +72,7 @@ class ListPostView(View):
                         'created': post.created,
                         'title': post.title,
                         'content': post.content
-                    } for post in posts
+                    } for post in posts.reverse()
                 ]
             }
         )

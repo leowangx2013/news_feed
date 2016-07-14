@@ -56,7 +56,7 @@ class ListSubredditView(View):
                         'created': subreddit.created,
                         'title': subreddit.title,
                         'description': subreddit.description
-                    } for subreddit in Subreddit.objects.all()
+                    } for subreddit in Subreddit.objects.all().reverse()
                 ]
             }
         )
