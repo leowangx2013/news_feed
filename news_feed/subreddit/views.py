@@ -37,7 +37,6 @@ class CreateSubredditView(View):
 
         return JsonResponse(status=200, data={'status': 'OK'}, safe=False)
 
-
 class ListSubredditView(View):
 
     """

@@ -16,6 +16,10 @@ var app = angular.module('NewsFeed', ['ngResource', 'ui.bootstrap'])
             method:'POST',
             params: {'verb': 'create'},
         },
+        'addLike': {
+            method: 'POST',
+            params: {'verb': 'addLike'},
+        }
     });
 }])
 .service('SubredditResource', ['$resource', function($resource) {
@@ -55,6 +59,14 @@ var app = angular.module('NewsFeed', ['ngResource', 'ui.bootstrap'])
                 // TODO | Highlight box red and alert user on error
                 console.log(result);
                 getPosts(); // Refresh visible posts
+            }).$promise;
+        };
+        $scope.addLike = function(id) {
+            return PostResource.Post.addLike(
+                {'id': id},
+                function(result) {
+                console.log(result);
+                getPosts();
             }).$promise;
         };
     });

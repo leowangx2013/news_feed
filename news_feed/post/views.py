@@ -44,6 +44,14 @@ class CreatePostView(View):
 
         return JsonResponse(status=200, data={'status': 'OK'}, safe=False)
 
+class AddLikeView(View):
+    def post(self, request, *args, **kwargs):
+        input_data = json.loads(request.body)
+        post = get_object_or_404(Post, id=input_data['id'])
+        post.num_likes = post.num_likes + 1
+        post.save()
+
+        return JsonResponse(status=200, data={'status': 'OK'}, safe=False)
 
 class ListPostView(View):
 
@@ -59,6 +67,7 @@ class ListPostView(View):
         if subreddit_scope == 'global':
             posts = Post.objects.all()
         else:
+
             posts = Post.objects.filter(subreddit__id=subreddit_scope)
 
         return JsonResponse(
@@ -71,8 +80,10 @@ class ListPostView(View):
                         'id': post.id,
                         'created': post.created,
                         'title': post.title,
+                        'num_likes': post.num_likes,
                         'content': post.content
-                    } for post in posts.reverse()
+                    } for post in posts.filter(num_likes__lt=10).order_by('-num_likes')
                 ]
             }
         )
+

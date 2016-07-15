@@ -7,10 +7,8 @@
             <div class="post" ng-repeat="post in posts">
                 <heading ng-bind="post.title"></heading>
                 <content ng-bind="post.content"></content>
-                <num_likes ng-bing="post.num_likes"></num_likes>
-                <p class="navbar-form">
-                    <button ng-click="addNumLike()" type="submit" class="btn">Like</button>
-                </p>
+                <span ng-bind="post.num_likes"></span>
+                <button ng-click="addLike(post.id)" type="submit" class="btn">Like</button>
             </div>
 
             <div class="navbar-form">
