@@ -18,6 +18,7 @@
             </div>
         </ul>
     </div>
+
     <aside class="subreddits">
         <uib-tabset vertical="true" type="pills">
             <uib-tab heading="global" select="refreshPosts('global')"></uib-tab>
@@ -30,6 +31,8 @@
             <input type="text" ng-model="input_sub.popularity">
             <button ng-click="createSubreddit(input_sub.title, input_sub.description, input_sub.popularity)" type="submit" class="btn">Create Subreddit</button>
         </div>
+        <button ng-click="orderByTitle()" type="submit" class="btn">OrderByTitle</button>
+
     </aside>
 </div>
 {% endblock content %}

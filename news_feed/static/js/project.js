@@ -92,5 +92,22 @@ var app = angular.module('NewsFeed', ['ngResource', 'ui.bootstrap'])
                 });
         };
     });
+                $scope.orderByTitle = function(){
+        return SubredditResource.Subreddit.get(function(){
+            var len = $scope.subreddits.length;
+            for(var i=0;i<len-1;i++){
+                for(var j=i+1;j<len;j++){
+                    console.log(i,j);
+                    if($scope.subreddits[i].title > $scope.subreddits[j].title){
+                        console.log("exchange!")
+                        var temp = $scope.subreddits[i];
+                        $scope.subreddits[i] = $scope.subreddits[j];
+                        $scope.subreddits[j] = temp;
+                    }
+                }
+            }
+            console.log(len);
+        }).$promise;
+    }
 
 }]);
